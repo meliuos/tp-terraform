@@ -1,0 +1,29 @@
+\contentsline {chapter}{Introduction}{3}{chapter*.3}%
+\contentsline {chapter}{\numberline {1}Partie I : Infrastructure as Code Locale}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Structure du Projet}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Conteneurisation de l'Application (Dockerfile\_app)}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Définition Terraform}{5}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}variables.tf}{5}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}main.tf}{5}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}outputs.tf}{7}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Exécution du Cycle de Vie du Déploiement (DLC)}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Étape 1 : Initialisation (\texttt {terraform init})}{7}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Étape 2 : Planification (\texttt {terraform plan})}{8}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Étape 3 : Application (\texttt {terraform apply})}{8}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Étape 4 : Validation}{9}{subsection.1.4.4}%
+\contentsline {subsubsection}{Vérification via navigateur}{10}{subsection.1.4.4}%
+\contentsline {subsubsection}{Vérification via Docker CLI}{10}{figure.caption.7}%
+\contentsline {subsection}{\numberline {1.4.5}Étape 5 : Destruction (\texttt {terraform destroy})}{10}{subsection.1.4.5}%
+\contentsline {chapter}{\numberline {2}Partie II : Pipeline CI/CD GitHub Actions}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Contexte et Architecture du Pipeline}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Configuration du Pipeline (\texttt {main.yml})}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Configuration du Secret GitHub}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Exécution et Validation du Pipeline}{14}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Premier déclenchement}{14}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Validation par modification d'une variable}{14}{subsection.2.4.2}%
+\contentsline {chapter}{\numberline {3}Questions d'Approfondissement}{16}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Impact de \texttt {terraform destroy} sur \texttt {terraform.tfstate}}{16}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Immuabilité de l'Infrastructure}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Rôle de l'Étape Plan comme Gate du DLC}{17}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Réseau Docker comme Ressource Terraform}{17}{section.3.4}%
+\contentsline {chapter}{Conclusion}{19}{chapter*.15}%

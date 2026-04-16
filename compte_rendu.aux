@@ -1,0 +1,77 @@
+\relax 
+\providecommand\zref@newlabel[2]{}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {chapter}{Introduction}{3}{chapter*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Partie I : Infrastructure as Code Locale}{4}{chapter.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Structure du Projet}{4}{section.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Conteneurisation de l'Application (Dockerfile\_app)}{4}{section.1.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.1}{\ignorespaces Dockerfile\_app --- Image Nginx/Alpine}}{4}{lstlisting.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}Définition Terraform}{5}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}variables.tf}{5}{subsection.1.3.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.2}{\ignorespaces variables.tf --- Paramètres configurables}}{5}{lstlisting.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}main.tf}{5}{subsection.1.3.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.3}{\ignorespaces main.tf --- Configuration principale Terraform}}{5}{lstlisting.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}outputs.tf}{7}{subsection.1.3.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.4}{\ignorespaces outputs.tf --- Sorties du déploiement}}{7}{lstlisting.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Exécution du Cycle de Vie du Déploiement (DLC)}{7}{section.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}Étape 1 : Initialisation (\texttt  {terraform init})}{7}{subsection.1.4.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.5}{\ignorespaces Commande d'initialisation}}{7}{lstlisting.1.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Résultat de \texttt  {terraform init} --- Téléchargement du provider \texttt  {kreuzwerker/docker}}}{8}{figure.caption.4}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:terraform-init}{{1.1}{8}{Résultat de \texttt {terraform init} --- Téléchargement du provider \texttt {kreuzwerker/docker}}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}Étape 2 : Planification (\texttt  {terraform plan})}{8}{subsection.1.4.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.6}{\ignorespaces Commande de planification}}{8}{lstlisting.1.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Résultat de \texttt  {terraform plan} --- Aperçu des 4 ressources à créer}}{8}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:terraform-plan}{{1.2}{8}{Résultat de \texttt {terraform plan} --- Aperçu des 4 ressources à créer}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}Étape 3 : Application (\texttt  {terraform apply})}{8}{subsection.1.4.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.7}{\ignorespaces Commande d'application}}{8}{lstlisting.1.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces Résultat de \texttt  {terraform apply} --- Création des 4 ressources et affichage des outputs}}{9}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:terraform-apply}{{1.3}{9}{Résultat de \texttt {terraform apply} --- Création des 4 ressources et affichage des outputs}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.4}Étape 4 : Validation}{9}{subsection.1.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Vérification via navigateur}{10}{subsection.1.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces Accès à \texttt  {http://localhost:8080} --- Page de confirmation du déploiement IaC}}{10}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:app-browser}{{1.4}{10}{Accès à \texttt {http://localhost:8080} --- Page de confirmation du déploiement IaC}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Vérification via Docker CLI}{10}{figure.caption.7}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.8}{\ignorespaces Vérification de l'état des conteneurs}}{10}{lstlisting.1.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces Résultat de \texttt  {docker ps} --- Deux conteneurs en état \texttt  {Up}}}{10}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:docker-ps}{{1.5}{10}{Résultat de \texttt {docker ps} --- Deux conteneurs en état \texttt {Up}}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.5}Étape 5 : Destruction (\texttt  {terraform destroy})}{10}{subsection.1.4.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.9}{\ignorespaces Commande de destruction}}{10}{lstlisting.1.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces Résultat de \texttt  {terraform destroy} --- Suppression des 4 ressources}}{11}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:terraform-destroy}{{1.6}{11}{Résultat de \texttt {terraform destroy} --- Suppression des 4 ressources}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Partie II : Pipeline CI/CD GitHub Actions}{12}{chapter.2}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Contexte et Architecture du Pipeline}{12}{section.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture du pipeline CI/CD --- Flux de déclenchement et étapes DLC}}{12}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:pipeline-diagram}{{2.1}{12}{Architecture du pipeline CI/CD --- Flux de déclenchement et étapes DLC}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Configuration du Pipeline (\texttt  {main.yml})}{12}{section.2.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}{\ignorespaces .github/workflows/main.yml --- Pipeline GitHub Actions}}{12}{lstlisting.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Configuration du Secret GitHub}{13}{section.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Configuration du secret \texttt  {DB\_PASSWORD} dans les paramètres GitHub Actions}}{13}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:github-secret}{{2.2}{13}{Configuration du secret \texttt {DB\_PASSWORD} dans les paramètres GitHub Actions}{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Exécution et Validation du Pipeline}{14}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Premier déclenchement}{14}{subsection.2.4.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}{\ignorespaces Push initial vers la branche main}}{14}{lstlisting.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Exécution réussie du pipeline lors du premier push --- Toutes les étapes en vert}}{14}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:pipeline-run1}{{2.3}{14}{Exécution réussie du pipeline lors du premier push --- Toutes les étapes en vert}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Validation par modification d'une variable}{14}{subsection.2.4.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.3}{\ignorespaces Modification et push pour valider la mise à jour}}{14}{lstlisting.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Étape Plan du second déclenchement --- Détection du changement de variable}}{14}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:pipeline-run2-plan}{{2.4}{14}{Étape Plan du second déclenchement --- Détection du changement de variable}{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Étape Apply du second déclenchement --- Mise à jour de la ressource détectée}}{14}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:pipeline-run2-apply}{{2.5}{14}{Étape Apply du second déclenchement --- Mise à jour de la ressource détectée}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Questions d'Approfondissement}{16}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Impact de \texttt  {terraform destroy} sur \texttt  {terraform.tfstate}}{16}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Immuabilité de l'Infrastructure}{16}{section.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Rôle de l'Étape Plan comme Gate du DLC}{17}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Réseau Docker comme Ressource Terraform}{17}{section.3.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3.1}{\ignorespaces Ajout d'un réseau Docker partagé}}{17}{lstlisting.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Conclusion}{19}{chapter*.15}\protected@file@percent }
+\gdef \@abspage@last{20}

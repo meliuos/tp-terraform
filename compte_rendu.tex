@@ -1,0 +1,875 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{lmodern}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+
+\lstset{
+  literate=
+    {é}{{\'{e}}}1 {è}{{\`{e}}}1 {ê}{{\^{e}}}1 {ë}{{\"e}}1
+    {à}{{\`{a}}}1 {â}{{\^{a}}}1 {ù}{{\`{u}}}1 {û}{{\^{u}}}1
+    {î}{{\^{i}}}1 {ï}{{\"i}}1   {ô}{{\^{o}}}1 {ç}{{\c{c}}}1
+    {É}{{\'{E}}}1 {È}{{\`{E}}}1 {Ê}{{\^{E}}}1 {Ë}{{\"E}}1
+    {À}{{\`{A}}}1 {Â}{{\^{A}}}1 {Ù}{{\`{U}}}1 {Û}{{\^{U}}}1
+    {Î}{{\^{I}}}1 {Ï}{{\"I}}1   {Ô}{{\^{O}}}1 {Ç}{{\c{C}}}1
+    {ë}{{\"e}}1   {î}{{\^i}}1
+    {→}{{$\rightarrow$}}1 {—}{{---}}1 {–}{{--}}1
+}
+
+\newcommand{\screenshot}[2][0.85]{%
+  \IfFileExists{#2}{%
+    \includegraphics[width=#1\textwidth]{#2}%
+  }{%
+    \fbox{\begin{minipage}{#1\textwidth}%
+      \centering\vspace{1cm}%
+      \textit{[Capture d'\'ecran \`{a} ins\'erer]}%
+      \vspace{1cm}%
+    \end{minipage}}%
+  }%
+}
+
+\geometry{
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm
+}
+
+\definecolor{codegreen}{rgb}{0.0, 0.5, 0.0}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeblue}{rgb}{0.13, 0.29, 0.53}
+\definecolor{codepurple}{rgb}{0.55, 0.0, 0.55}
+\definecolor{backcolour}{rgb}{0.97, 0.97, 0.97}
+\definecolor{keywordcolor}{rgb}{0.0, 0.3, 0.6}
+\definecolor{stringcolor}{rgb}{0.64, 0.08, 0.08}
+\definecolor{bordercolor}{rgb}{0.7, 0.7, 0.7}
+
+\lstdefinestyle{terraform}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen}\itshape,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  stringstyle=\color{stringcolor},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  numbersep=8pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=single,
+  rulecolor=\color{bordercolor},
+  xleftmargin=15pt,
+  framexleftmargin=15pt,
+  morekeywords={terraform, required_providers, source, version, provider, resource,
+                variable, output, default, type, description, string, number, bool,
+                depends_on, ports, internal, external, env, build, context, dockerfile,
+                triggers, keep_locally, name, image, sensitive, value, true, false,
+                path, module, filemd5}
+}
+
+\lstdefinestyle{dockerfile}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen}\itshape,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  stringstyle=\color{stringcolor},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  numbersep=8pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=single,
+  rulecolor=\color{bordercolor},
+  xleftmargin=15pt,
+  framexleftmargin=15pt,
+  morekeywords={FROM, RUN, COPY, ADD, EXPOSE, CMD, ENTRYPOINT, ENV, WORKDIR, ARG, LABEL}
+}
+
+\lstdefinestyle{yaml}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen}\itshape,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  stringstyle=\color{stringcolor},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  numbersep=8pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=single,
+  rulecolor=\color{bordercolor},
+  xleftmargin=15pt,
+  framexleftmargin=15pt,
+  morekeywords={name, on, push, branches, jobs, runs-on, steps, uses, with, run, if, id,
+                defaults, working-directory, continue-on-error, outcome, secrets}
+}
+
+\lstdefinestyle{bash}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen}\itshape,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  stringstyle=\color{stringcolor},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=none,
+  showspaces=false,
+  showstringspaces=false,
+  frame=single,
+  rulecolor=\color{bordercolor},
+  xleftmargin=5pt
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{TP IaC \& CI/CD — Terraform + Docker}}
+\fancyhead[R]{\textit{Génie Logiciel / DevOps}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=codeblue,
+  urlcolor=codeblue,
+  pdftitle={Compte Rendu TP IaC et CI/CD},
+  pdfauthor={Mootez Souilem}
+}
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{codeblue}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{codeblue}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{black}}
+  {\thesubsection}{1em}{}
+
+\begin{document}
+
+% ============================================================
+% PAGE DE GARDE
+% ============================================================
+\begin{titlepage}
+  \centering
+  \vspace*{1cm}
+
+  {\scshape\Large Travaux Pratiques --- DevOps \par}
+  \vspace{0.5cm}
+  {\large Génie Logiciel / Ingénierie Informatique \par}
+  \vspace{2cm}
+
+  \rule{\linewidth}{1.5pt} \\[0.4cm]
+  {\Huge\bfseries Infrastructure as Code \& \\ Pipelines CI/CD \par}
+  \rule{\linewidth}{1.5pt} \\[0.5cm]
+
+  \vspace{1cm}
+  {\Large\itshape Déploiement Automatisé avec Terraform et Docker \par}
+  \vspace{2cm}
+
+  \begin{tabular}{rl}
+    \textbf{Étudiant :}   & Mootez Souilem \\[4pt]
+    \textbf{Email :}      & mootez.souilem@bysur.com \\[4pt]
+    \textbf{Date :}       & 16 avril 2026 \\[4pt]
+    \textbf{Outils :}     & Docker, Terraform, GitHub Actions \\[4pt]
+    \textbf{Durée :}      & 6 heures \\
+  \end{tabular}
+
+  \vfill
+
+  \begin{tcolorbox}[colback=codeblue!10, colframe=codeblue, width=0.85\textwidth]
+    \centering
+    \textbf{Objectif :} Maîtriser le Cycle de Vie du Déploiement (DLC) complet via l'IaC\\
+    en orchestrant des conteneurs Docker avec Terraform et en automatisant\\
+    le processus à travers un pipeline CI/CD GitHub Actions.
+  \end{tcolorbox}
+
+\end{titlepage}
+
+\tableofcontents
+\listoffigures
+\clearpage
+
+% ============================================================
+% INTRODUCTION
+% ============================================================
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+L'Infrastructure as Code (IaC) représente une approche fondamentale du DevOps moderne :
+elle consiste à décrire et gérer l'infrastructure informatique au travers de fichiers de
+configuration versionnés, lisibles par des humains et interprétables par des machines.
+Contrairement à une gestion manuelle et ad hoc, l'IaC garantit la \textbf{reproductibilité},
+la \textbf{traçabilité} et la \textbf{cohérence} des environnements.
+
+Ce TP s'articule en deux grandes parties :
+
+\begin{enumerate}
+  \item \textbf{Partie I} --- Déploiement d'une infrastructure locale composée d'un conteneur
+        PostgreSQL et d'une application web Nginx, orchestrés par Terraform via le provider
+        Docker.
+  \item \textbf{Partie II} --- Automatisation complète du Cycle de Vie du Déploiement au sein
+        d'un pipeline CI/CD GitHub Actions déclenché à chaque \textit{push} sur la branche
+        principale.
+\end{enumerate}
+
+\noindent L'environnement de développement utilisé est le suivant :
+\begin{itemize}
+  \item Système d'exploitation : Ubuntu 22.04 LTS
+  \item Terraform CLI : version 1.7.x
+  \item Docker Engine : version 24.x
+  \item GitHub Actions : runner \texttt{ubuntu-latest}
+\end{itemize}
+
+% ============================================================
+% PARTIE I
+% ============================================================
+\chapter{Partie I : Infrastructure as Code Locale}
+
+\section{Structure du Projet}
+
+Le projet suit une organisation claire et modulaire, où chaque fichier joue un rôle précis
+dans la chaîne de déploiement :
+
+\begin{mdframed}[backgroundcolor=backcolour, linecolor=bordercolor]
+\begin{verbatim}
+tp-iac-local/
+|-- main.tf           (Provider Docker + definition des ressources)
+|-- variables.tf      (Parametres configurables : ports, credentials)
+|-- outputs.tf        (Informations de sortie apres deploiement)
+|-- Dockerfile_app    (Blueprint de l'image Nginx/Alpine)
++-- .gitignore        (Exclusion des fichiers d'etat Terraform)
+\end{verbatim}
+\end{mdframed}
+
+\section{Conteneurisation de l'Application (Dockerfile\_app)}
+
+Le \texttt{Dockerfile\_app} construit une image légère basée sur Alpine Linux,
+dans laquelle Nginx est installé pour servir une page de validation statique.
+
+\begin{lstlisting}[style=dockerfile, caption={Dockerfile\_app --- Image Nginx/Alpine}]
+FROM alpine:latest
+
+RUN apk update && \
+    apk add --no-cache nginx
+
+RUN mkdir -p /var/www/localhost && \
+    echo "<h1>Application Deployed via Terraform IaC!</h1>" > \
+    /var/www/localhost/index.html
+
+RUN mkdir -p /run/nginx
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+\end{lstlisting}
+
+\textbf{Choix techniques :}
+\begin{itemize}
+  \item \texttt{alpine:latest} : image de base minimaliste ($\approx$ 5 Mo) réduisant la surface d'attaque.
+  \item \texttt{--no-cache} : évite la mise en cache du gestionnaire de paquets pour alléger l'image finale.
+  \item \texttt{daemon off;} : Nginx s'exécute en premier plan, permettant à Docker de gérer le cycle de vie du processus.
+  \item Création explicite de \texttt{/run/nginx} : nécessaire sur Alpine pour que Nginx puisse écrire son PID.
+\end{itemize}
+
+\section{Définition Terraform}
+
+\subsection{variables.tf}
+
+Ce fichier centralise tous les paramètres configurables de l'infrastructure,
+rendant le code \textit{DRY} (Don't Repeat Yourself) et facilement injectable
+par le pipeline CI/CD.
+
+\begin{lstlisting}[style=terraform, caption={variables.tf --- Paramètres configurables}]
+variable "db_name" {
+  description = "Nom de la base de données PostgreSQL."
+  type        = string
+  default     = "devops_db"
+}
+
+variable "db_user" {
+  description = "Nom d'utilisateur PostgreSQL."
+  type        = string
+  default     = "devops_user"
+}
+
+variable "db_password" {
+  description = "Mot de passe PostgreSQL."
+  type        = string
+  default     = "strongpassword123"
+  sensitive   = true
+}
+
+variable "app_port_external" {
+  description = "Port externe pour accéder à l'application web."
+  type        = number
+  default     = 8080
+}
+\end{lstlisting}
+
+L'attribut \texttt{sensitive = true} sur \texttt{db\_password} empêche Terraform
+d'afficher la valeur en clair dans les logs du terminal et du pipeline CI/CD.
+
+\subsection{main.tf}
+
+Le fichier central déclare le provider Docker et définit l'ensemble des ressources
+à provisionner.
+
+\begin{lstlisting}[style=terraform, caption={main.tf --- Configuration principale Terraform}]
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0.1"
+    }
+  }
+}
+
+provider "docker" {}
+
+resource "docker_image" "postgres_image" {
+  name         = "postgres:latest"
+  keep_locally = true
+}
+
+resource "docker_container" "db_container" {
+  name  = "tp-db-postgres"
+  image = docker_image.postgres_image.image_id
+
+  ports {
+    internal = 5432
+    external = 5432
+  }
+
+  env = [
+    "POSTGRES_USER=${var.db_user}",
+    "POSTGRES_PASSWORD=${var.db_password}",
+    "POSTGRES_DB=${var.db_name}",
+  ]
+}
+
+resource "docker_image" "app_image" {
+  name = "tp-web-app:latest"
+
+  build {
+    context    = path.module
+    dockerfile = "Dockerfile_app"
+  }
+
+  triggers = {
+    dockerfile_hash = filemd5("${path.module}/Dockerfile_app")
+  }
+}
+
+resource "docker_container" "app_container" {
+  name  = "tp-app-web"
+  image = docker_image.app_image.image_id
+
+  depends_on = [
+    docker_container.db_container
+  ]
+
+  ports {
+    internal = 80
+    external = var.app_port_external
+  }
+}
+\end{lstlisting}
+
+\textbf{Points clés du \texttt{main.tf} :}
+\begin{itemize}
+  \item \texttt{keep\_locally = true} : préserve l'image PostgreSQL localement après \texttt{terraform destroy} pour éviter un re-téléchargement inutile.
+  \item \texttt{image\_id} : attribut correct pour le provider v3.x (l'attribut \texttt{latest} a été déprécié).
+  \item \texttt{triggers} : force la reconstruction de l'image Docker si le \texttt{Dockerfile\_app} est modifié.
+  \item \texttt{depends\_on} : garantit l'ordre de démarrage --- la base de données doit être opérationnelle avant le lancement de l'application.
+\end{itemize}
+
+\subsection{outputs.tf}
+
+\begin{lstlisting}[style=terraform, caption={outputs.tf --- Sorties du déploiement}]
+output "db_container_name" {
+  description = "Nom du conteneur de la base de données."
+  value       = docker_container.db_container.name
+}
+
+output "app_access_url" {
+  description = "URL d'accès à l'application web."
+  value       = "http://localhost:${docker_container.app_container.ports[0].external}"
+}
+
+output "db_container_id" {
+  description = "ID du conteneur PostgreSQL."
+  value       = docker_container.db_container.id
+}
+
+output "app_container_id" {
+  description = "ID du conteneur de l'application web."
+  value       = docker_container.app_container.id
+}
+\end{lstlisting}
+
+\section{Exécution du Cycle de Vie du Déploiement (DLC)}
+
+\subsection{Étape 1 : Initialisation (\texttt{terraform init})}
+
+La commande \texttt{terraform init} télécharge et installe le provider Docker
+depuis le registre Terraform.
+
+\begin{lstlisting}[style=bash, caption={Commande d'initialisation}]
+$ cd tp-iac-local
+$ terraform init
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/terraform_init.png}
+  \caption{Résultat de \texttt{terraform init} --- Téléchargement du provider \texttt{kreuzwerker/docker}}
+  \label{fig:terraform-init}
+\end{figure}
+
+Le message \texttt{Terraform has been successfully initialized!} confirme que
+le provider est installé dans le répertoire \texttt{.terraform/} et que le fichier
+de verrou \texttt{.terraform.lock.hcl} a été généré.
+
+\subsection{Étape 2 : Planification (\texttt{terraform plan})}
+
+\begin{lstlisting}[style=bash, caption={Commande de planification}]
+$ terraform plan
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/terraform_plan.png}
+  \caption{Résultat de \texttt{terraform plan} --- Aperçu des 4 ressources à créer}
+  \label{fig:terraform-plan}
+\end{figure}
+
+Terraform affiche un plan d'exécution détaillant les \textbf{4 ressources} à créer :
+\begin{enumerate}
+  \item \texttt{docker\_image.postgres\_image} --- Pull de \texttt{postgres:latest}
+  \item \texttt{docker\_container.db\_container} --- Conteneur PostgreSQL
+  \item \texttt{docker\_image.app\_image} --- Build de l'image Nginx
+  \item \texttt{docker\_container.app\_container} --- Conteneur de l'application web
+\end{enumerate}
+
+Le résumé \texttt{Plan: 4 to add, 0 to change, 0 to destroy} confirme qu'aucune
+infrastructure existante ne sera perturbée.
+
+\subsection{Étape 3 : Application (\texttt{terraform apply})}
+
+\begin{lstlisting}[style=bash, caption={Commande d'application}]
+$ terraform apply -auto-approve
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/terraform_apply.png}
+  \caption{Résultat de \texttt{terraform apply} --- Création des 4 ressources et affichage des outputs}
+  \label{fig:terraform-apply}
+\end{figure}
+
+À l'issue de l'apply, Terraform affiche les \textit{outputs} définis dans
+\texttt{outputs.tf}, notamment l'URL d'accès :
+
+\begin{mdframed}[backgroundcolor=backcolour, linecolor=bordercolor]
+\begin{verbatim}
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+app_access_url    = "http://localhost:8080"
+db_container_name = "tp-db-postgres"
+\end{verbatim}
+\end{mdframed}
+
+\subsection{Étape 4 : Validation}
+
+Après l'application, la vérification s'effectue à deux niveaux :
+
+\subsubsection{Vérification via navigateur}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/app_browser.png}
+  \caption{Accès à \texttt{http://localhost:8080} --- Page de confirmation du déploiement IaC}
+  \label{fig:app-browser}
+\end{figure}
+
+\subsubsection{Vérification via Docker CLI}
+
+\begin{lstlisting}[style=bash, caption={Vérification de l'état des conteneurs}]
+$ docker ps
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/docker_ps.png}
+  \caption{Résultat de \texttt{docker ps} --- Deux conteneurs en état \texttt{Up}}
+  \label{fig:docker-ps}
+\end{figure}
+
+Les deux conteneurs \texttt{tp-db-postgres} et \texttt{tp-app-web} apparaissent
+avec le statut \texttt{Up}, confirmant le bon déroulement du déploiement.
+
+\subsection{Étape 5 : Destruction (\texttt{terraform destroy})}
+
+\begin{lstlisting}[style=bash, caption={Commande de destruction}]
+$ terraform destroy -auto-approve
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/terraform_destroy.png}
+  \caption{Résultat de \texttt{terraform destroy} --- Suppression des 4 ressources}
+  \label{fig:terraform-destroy}
+\end{figure}
+
+Le message final \texttt{Destroy complete! Resources: 4 destroyed.} confirme
+la suppression propre de l'ensemble des ressources provisionnées.
+
+% ============================================================
+% PARTIE II
+% ============================================================
+\chapter{Partie II : Pipeline CI/CD GitHub Actions}
+
+\section{Contexte et Architecture du Pipeline}
+
+L'objectif de cette partie est d'automatiser le Cycle de Vie du Déploiement en
+intégrant les commandes Terraform dans un pipeline GitHub Actions. Ce pipeline
+se déclenche automatiquement à chaque \textit{push} sur la branche \texttt{main}.
+
+
+\section{Configuration du Pipeline (\texttt{main.yml})}
+
+\begin{lstlisting}[style=yaml, caption={.github/workflows/main.yml --- Pipeline GitHub Actions}]
+name: Terraform IaC Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tp-iac-local
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var="db_password=${{ secrets.DB_PASSWORD }}" -out=tfplan
+        continue-on-error: false
+
+      - name: Terraform Apply
+        if: steps.plan.outcome == 'success'
+        run: terraform apply -auto-approve tfplan
+\end{lstlisting}
+
+\textbf{Points de conception importants :}
+\begin{itemize}
+  \item \texttt{working-directory: tp-iac-local} : les commandes Terraform s'exécutent
+        dans le bon répertoire sans nécessiter de \texttt{cd} explicite à chaque étape.
+  \item \texttt{continue-on-error: false} sur l'étape Plan : tout échec du plan
+        arrête immédiatement le pipeline, empêchant un apply sur une base défaillante.
+  \item \texttt{if: steps.plan.outcome == 'success'} : la condition de garde (\textit{gate})
+        garantit que l'étape Apply ne s'exécute que si et seulement si le Plan a réussi.
+  \item \texttt{secrets.DB\_PASSWORD} : le mot de passe de la base de données est injecté
+        via les secrets GitHub, sans jamais apparaître en clair dans le code source.
+  \item \texttt{-out=tfplan} : le plan est sauvegardé dans un fichier binaire, que l'étape
+        Apply consomme directement --- garantissant que l'état appliqué correspond
+        exactement à ce qui a été planifié.
+\end{itemize}
+
+\section{Configuration du Secret GitHub}
+
+Avant de pousser le projet, le secret \texttt{DB\_PASSWORD} doit être créé dans les
+paramètres du dépôt GitHub : \texttt{Settings > Secrets and variables > Actions > New repository secret}.
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/github_secret.png}
+  \caption{Configuration du secret \texttt{DB\_PASSWORD} dans les paramètres GitHub Actions}
+  \label{fig:github-secret}
+\end{figure}
+
+\section{Exécution et Validation du Pipeline}
+
+\subsection{Premier déclenchement}
+
+\begin{lstlisting}[style=bash, caption={Push initial vers la branche main}]
+$ git init
+$ git add .
+$ git commit -m "feat: initial IaC setup with Terraform and Docker"
+$ git remote add origin https://github.com/<username>/tp-iac-local.git
+$ git push -u origin main
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/pipeline_run1.png}
+  \caption{Exécution réussie du pipeline lors du premier push --- Toutes les étapes en vert}
+  \label{fig:pipeline-run1}
+\end{figure}
+
+\subsection{Validation par modification d'une variable}
+
+Conformément aux consignes, le mot de passe de la base de données a été modifié
+dans \texttt{variables.tf} pour déclencher un second cycle de déploiement.
+
+\begin{lstlisting}[style=bash, caption={Modification et push pour valider la mise à jour}]
+$ git add variables.tf
+$ git commit -m "chore: update db_password default value"
+$ git push origin main
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/pipeline_run2_plan.png}
+  \caption{Étape Plan du second déclenchement --- Détection du changement de variable}
+  \label{fig:pipeline-run2-plan}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \screenshot{screenshots/pipeline_run2_apply.png}
+  \caption{Étape Apply du second déclenchement --- Mise à jour de la ressource détectée}
+  \label{fig:pipeline-run2-apply}
+\end{figure}
+
+Le pipeline détecte le changement de variable dans l'étape Plan (\texttt{1 to change})
+et applique la modification lors de l'étape Apply, démontrant la boucle de réconciliation
+automatique de Terraform.
+
+% ============================================================
+% QUESTIONS D'APPROFONDISSEMENT
+% ============================================================
+\chapter{Questions d'Approfondissement}
+
+\section{Impact de \texttt{terraform destroy} sur \texttt{terraform.tfstate}}
+
+\texttt{terraform.tfstate} est le \textbf{fichier d'état} de Terraform : il contient une
+représentation JSON de l'infrastructure réelle telle que Terraform la connaît, incluant
+les identifiants des ressources créées, leurs attributs actuels, et les dépendances
+entre elles.
+
+Lors de l'exécution de \texttt{terraform destroy} :
+
+\begin{enumerate}
+  \item Terraform lit le \texttt{terraform.tfstate} pour identifier toutes les ressources
+        à supprimer et leur ordre de destruction (inversé par rapport à la création,
+        en respectant les dépendances).
+  \item Il contacte le provider (Docker dans notre cas) pour effectivement supprimer
+        les ressources.
+  \item Il met à jour le \texttt{terraform.tfstate} : les ressources supprimées sont
+        retirées, laissant un fichier d'état vide (ou ne contenant que les ressources
+        non détruites).
+\end{enumerate}
+
+\noindent\textbf{Rôle dans la réconciliation :} Le fichier d'état est le pont entre
+\textit{l'infrastructure déclarée dans le code} et \textit{l'infrastructure réelle}.
+À chaque \texttt{plan} ou \texttt{apply}, Terraform compare l'état désiré (les
+fichiers \texttt{.tf}) à l'état connu (le \texttt{.tfstate}) et à l'état réel (via des
+appels API au provider) pour calculer le diff minimal à appliquer. Sans ce fichier,
+Terraform ne saurait pas quelles ressources il a déjà créées et tenterait de tout
+recréer à chaque exécution.
+
+\begin{tcolorbox}[colback=orange!5, colframe=orange!80!black, title=Attention en production]
+  En production, le fichier \texttt{terraform.tfstate} doit être stocké dans un
+  \textbf{backend distant} (S3, Azure Blob, Terraform Cloud) avec verrouillage
+  (\textit{state locking}) pour éviter les corruptions en cas d'accès concurrent.
+  Ne jamais committer ce fichier dans Git.
+\end{tcolorbox}
+
+\section{Immuabilité de l'Infrastructure}
+
+L'immuabilité de l'infrastructure (\textit{Immutable Infrastructure}) est un principe
+selon lequel \textbf{un serveur ou un conteneur déployé ne doit jamais être modifié
+après sa création}. Toute modification passe par la création d'une nouvelle instance
+qui remplace l'ancienne, au lieu de muter l'instance existante.
+
+\begin{center}
+\begin{tabular}{>{\bfseries}p{5cm} p{8cm}}
+  \toprule
+  Approche Mutable & Approche Immuable \\
+  \midrule
+  On se connecte au serveur en SSH et on met à jour le paquet Nginx &
+  On reconstruit une nouvelle image Docker avec la nouvelle version, on déploie
+  le nouveau conteneur, on supprime l'ancien \\
+  \midrule
+  Risque de \textit{configuration drift} &
+  Infrastructure toujours dans un état connu et reproductible \\
+  \midrule
+  Retour arrière difficile &
+  Retour arrière = redéployer l'image précédente \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+\noindent Dans notre TP, l'utilisation du mécanisme \texttt{triggers} dans la ressource
+\texttt{docker\_image.app\_image} illustre ce principe : toute modification du
+\texttt{Dockerfile\_app} provoque la \textbf{reconstruction complète} de l'image
+et le \textbf{remplacement} du conteneur, jamais sa modification en place.
+
+\section{Rôle de l'Étape Plan comme Gate du DLC}
+
+L'étape \texttt{terraform plan} joue le rôle de \textbf{porte de validation}
+(\textit{quality gate}) essentielle dans le DLC pour plusieurs raisons :
+
+\begin{enumerate}
+  \item \textbf{Prévisibilité sans risque} : le plan simule l'intégralité des changements
+        sans toucher à l'infrastructure réelle. Un opérateur peut vérifier exactement
+        ce qui sera modifié, créé ou supprimé.
+
+  \item \textbf{Détection précoce d'erreurs} : les erreurs de syntaxe, de références
+        incorrectes ou de conflits de ressources sont détectées avant toute modification
+        de production.
+
+  \item \textbf{Séparation des responsabilités} : dans un contexte d'équipe, le plan
+        peut être soumis à une revue humaine (\textit{plan review}) ou à une approbation
+        manuelle avant l'apply --- c'est le principe du \textit{four-eyes principle}.
+
+  \item \textbf{Intégrité du pipeline} : dans notre fichier \texttt{main.yml}, la condition
+        \texttt{if: steps.plan.outcome == 'success'} garantit que l'étape Apply
+        n'est jamais exécutée sur une base de plan défaillante.
+
+  \item \textbf{Auditabilité} : le fichier \texttt{tfplan} généré constitue une preuve
+        immuable de ce qui était prévu d'être appliqué, utilisable à des fins d'audit.
+\end{enumerate}
+
+\section{Réseau Docker comme Ressource Terraform}
+
+Pour créer un réseau Docker dédié et y connecter les deux conteneurs, la ressource
+Terraform à utiliser est \textbf{\texttt{docker\_network}} du provider
+\texttt{kreuzwerker/docker}. Voici comment l'intégrer dans \texttt{main.tf} :
+
+\begin{lstlisting}[style=terraform, caption={Ajout d'un réseau Docker partagé}]
+resource "docker_network" "app_network" {
+  name = "tp-app-network"
+}
+
+resource "docker_container" "db_container" {
+  name  = "tp-db-postgres"
+  image = docker_image.postgres_image.image_id
+
+  networks_advanced {
+    name = docker_network.app_network.name
+  }
+
+  env = [
+    "POSTGRES_USER=${var.db_user}",
+    "POSTGRES_PASSWORD=${var.db_password}",
+    "POSTGRES_DB=${var.db_name}",
+  ]
+}
+
+resource "docker_container" "app_container" {
+  name  = "tp-app-web"
+  image = docker_image.app_image.image_id
+
+  depends_on = [docker_container.db_container]
+
+  networks_advanced {
+    name = docker_network.app_network.name
+  }
+
+  ports {
+    internal = 80
+    external = var.app_port_external
+  }
+}
+\end{lstlisting}
+
+\noindent\textbf{Avantages de cette approche :}
+\begin{itemize}
+  \item Les conteneurs communiquent par leur nom DNS (ex : le conteneur \texttt{app}
+        peut joindre le conteneur \texttt{db} via l'hôte \texttt{tp-db-postgres}).
+  \item Le port 5432 de PostgreSQL n'a plus besoin d'être exposé sur l'hôte,
+        améliorant la sécurité (\textit{principle of least exposure}).
+  \item L'infrastructure est plus proche d'un environnement de production réel.
+\end{itemize}
+
+% ============================================================
+% CONCLUSION
+% ============================================================
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Ce TP a permis de mettre en pratique l'ensemble du cycle de vie d'un déploiement
+infrastructure moderne, depuis la définition déclarative des ressources avec Terraform
+jusqu'à leur automatisation complète via un pipeline CI/CD GitHub Actions.
+
+\vspace{0.5em}
+\noindent Les compétences acquises couvrent trois dimensions complémentaires :
+
+\begin{itemize}
+  \item \textbf{Technique} : maîtrise du provider Docker Terraform (v3.x), gestion des
+        dépendances entre ressources, build d'images Docker depuis Terraform, gestion
+        des outputs et des variables sensibles.
+
+  \item \textbf{Processus} : compréhension du Cycle de Vie du Déploiement à travers
+        ses cinq étapes (Init → Plan → Apply → Validate → Destroy), avec la distinction
+        cruciale entre phase de planification (prévisualisation sans risque) et phase
+        d'application (mutation réelle).
+
+  \item \textbf{Culture DevOps} : appréhension des principes fondateurs --- immuabilité
+        de l'infrastructure, gestion de l'état, séparation entre code d'infrastructure
+        et secrets, et automatisation comme garant de la cohérence.
+\end{itemize}
+
+\vspace{0.5em}
+\noindent Ce socle constitue une base solide pour aborder des environnements cloud
+réels (AWS, Azure, GCP) où Terraform est l'outil de facto pour l'orchestration
+d'infrastructure à grande échelle.
+
+\end{document}
